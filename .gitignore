@@ -1,6 +1,10 @@
-README_original.md
-font
-Paper
-PPT
+*.aux
+*.log
+*.nav
+*.out
+*.toc
+*.snm
+*.synctex.gz
+
 thesis
 slide
