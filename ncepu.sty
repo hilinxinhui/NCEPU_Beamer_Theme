@@ -10,7 +10,7 @@
 \makeatletter % [add curpage/total page at the bottom](http://tex.stackexchange.com/questions/100838/beamer-dresden-theme-miniframes-appeareance-and-frame-number-insertion)
 \newcommand{\frameofframes}{/}
 \newcommand{\setframeofframes}[1]{\renewcommand{\frameofframes}{#1}}
-\setbeamertemplate{footline} 
+\setbeamertemplate{footline}
   {%
     \begin{beamercolorbox}[colsep=1.5pt]{upper separation line foot}
     \end{beamercolorbox}
@@ -36,7 +36,7 @@
 %\useoutertheme{default}
 %\useinnertheme[shadow=true]{rounded}
 
-\xdefinecolor{ncepu}{RGB}{0,90,160}  %RGB#215EA0
+\xdefinecolor{ncepu}{RGB}{0,90,160}
 \setbeamercolor{footline}{bg=ncepu}
 \setbeamercolor{frametitle}{bg=ncepu,fg=white}
 \setbeamercolor{title}{bg=ncepu}
@@ -73,16 +73,16 @@
 \setbeamercolor{structure}{fg=ncepu}
 \setbeamercolor{subsection in sidebar}{fg=brown}
 \setbeamercolor{subsection in sidebar shaded}{fg=grey}
-\AtBeginSection[]{
-	\begin{frame}
-		\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
-	\end{frame}
-}
-\AtBeginSubsection[]{
-	\begin{frame}
-		\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
-	\end{frame}
-}
+% \AtBeginSection[]{
+% 	\begin{frame}
+% 		\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
+% 	\end{frame}
+% }
+% \AtBeginSubsection[]{
+% 	\begin{frame}
+% 		\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
+% 	\end{frame}
+% }
 
 \mode
 <all>
