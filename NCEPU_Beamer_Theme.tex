@@ -8,6 +8,7 @@
 \usepackage{subfig} % 子图
 \usepackage{booktabs} % 三线表
 \usepackage{multirow} % 三线表
+\usepackage{caption}
 % \usepackage[utf8]{inputenc} 
 % \usepackage{fontspec}
 % \setmainfont{Times New Roman}
@@ -21,12 +22,11 @@
 \parbox[c]{\linewidth}{\begin{flalign}#1&&\end{flalign}}
 \endgroup}
 
-\author[林新辉]{答辩人：林新辉 \\ [5mm] 导师：李沂洹\ 讲师}
+\author[林新辉]{答辩人：林新辉 \\ [5mm] 导师：李沂洹}
 \title{基于数据驱动方法的动力电池健康状态估计和剩余寿命预测方法研究}
 \subtitle{Research on Data-Driven Approaches for Estimating Health Status and Predicting Remaining Useful Life of Lithium-Ion Batteries in Electric Vehicles}
 \institute{控制与计算机工程学院，华北电力大学}
 \date{2023年6月13日}
-
 
 \begin{document}
 
@@ -48,7 +48,6 @@
 	% 	\includegraphics[scale=0.2]{figures/nasa_B0005_failure_threshold.jpg}
 	% \end{figure}
 	\begin{figure}[htbp]    % 常规操作\begin{figure}开头说明插入图片
-		% 后面跟着的[htbp]是图片在文档中放置的位置，也称为浮动体的位置，关于这个我们后面的文章会聊聊，现在不管，照写就是了
 		  \centering            % 前面说过，图片放置在中间
 		  \subfloat[SOH]   % 第一张子图的下标（注意：注释要写在[]中括号内）
 		  {\label{fig:subfig1}\includegraphics[width=0.25\textwidth]{figures/nasa_B0005_failure_threshold.jpg}}
@@ -122,6 +121,7 @@
 	\bottomrule
 	\end{tabular}%
 	}
+	\captionsetup{font=tiny}
 	\caption{五种模型预测性能评估结果}
 	\end{table}
 	\begin{itemize}
@@ -178,6 +178,7 @@
 	\bottomrule
 	\end{tabular}%
 	}
+	\captionsetup{font=tiny}
 	\caption{四组实验CNN模型预测性能评估结果}
 	\end{table}
 	\begin{itemize}
@@ -222,7 +223,8 @@
 	\bottomrule
 	\end{tabular}%
 	}
-	\caption{\fontsize{10.5bp}{17bp}DeepLSTM模型电池Ah-RUL预测性能}
+	\captionsetup{font=tiny}
+	\caption{DeepLSTM模型电池Ah-RUL预测性能}
 	\end{table}
 	\begin{itemize}
 		\item 实验结果表明使用数据驱动方法实现锂离子电池RUL预测具有可行性
