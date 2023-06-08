@@ -4,7 +4,10 @@
 \usepackage{calligra}
 \usepackage[T1]{fontenc}
 \usepackage{ncepu}
-\usepackage{graphicx}
+\usepackage{graphicx} % 插入图片
+\usepackage{subfig} % 子图
+\usepackage{booktabs} % 三线表
+\usepackage{multirow} % 三线表
 % \usepackage[utf8]{inputenc} 
 % \usepackage{fontspec}
 % \setmainfont{Times New Roman}
@@ -18,7 +21,7 @@
 \parbox[c]{\linewidth}{\begin{flalign}#1&&\end{flalign}}
 \endgroup}
 
-\author{林新辉}
+\author[林新辉]{答辩人：林新辉 \\ [5mm] 导师：李沂洹\ 讲师}
 \title{基于数据驱动方法的动力电池健康状态估计和剩余寿命预测方法研究}
 \subtitle{Research on Data-Driven Approaches for Estimating Health Status and Predicting Remaining Useful Life of Lithium-Ion Batteries in Electric Vehicles}
 \institute{控制与计算机工程学院，华北电力大学}
@@ -41,9 +44,27 @@
 \section{研究背景和研究对象}
 
 \begin{frame}{\small 研究背景和研究对象}
-	\begin{figure}[htbp]
-		\includegraphics[scale=0.2]{figures/nasa_B0005_failure_threshold.jpg}
-	\end{figure}
+	% \begin{figure}[htbp]
+	% 	\includegraphics[scale=0.2]{figures/nasa_B0005_failure_threshold.jpg}
+	% \end{figure}
+	\begin{figure}[htbp]    % 常规操作\begin{figure}开头说明插入图片
+		% 后面跟着的[htbp]是图片在文档中放置的位置，也称为浮动体的位置，关于这个我们后面的文章会聊聊，现在不管，照写就是了
+		  \centering            % 前面说过，图片放置在中间
+		  \subfloat[SOH]   % 第一张子图的下标（注意：注释要写在[]中括号内）
+		  {
+			  \label{fig:subfig1}\includegraphics[width=0.25\textwidth]{figures/nasa_B0005_failure_threshold.jpg}
+		  }
+		  \subfloat[RUL]
+		  {
+			  \label{fig:subfig2}\includegraphics[width=0.25\textwidth]{figures/RUL.png}
+		  }
+		  \subfloat[SOC]
+		  {
+			  \label{fig:subfig3}\includegraphics[width=0.25\textwidth]{figures/tri_b3c0_soc.jpg}
+		  }
+		  \caption{电池SOH、RUL和SOC示意图}    % 整个图片的说明，注释写在{}内
+		  \label{fig:subfig_1}            % 整个图片的标签编号，注意这里跟子图是一样的道理，标签不能重复 
+		\end{figure}
 	\begin{description}
 		% \begin{itemize}
 		\item[SOH]
@@ -64,6 +85,25 @@
 \end{frame}
 
 \begin{frame}
+	% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+% \usepackage{graphicx}
+\begin{table}[]
+	\centering
+	\resizebox{\columnwidth}{!}{%
+	\begin{tabular}{ccccccccccc}
+	\toprule
+	\multirow{2}{*}{指标} & \multicolumn{5}{l}{CALCE数据集}          & \multicolumn{5}{l}{NASA PCoE数据集}      \\
+						& AR    & SVR   & MLP   & LSTM  & CNN   & AR    & SVR   & MLP   & LSTM  & CNN   \\
+	\midrule
+	平均MaxE              & 0.116 & 0.141 & 0.147 & 0.152 & 0.142 & 0.054 & 0.097 & 0.111 & 0.158 & 0.113 \\
+	平均MAE               & 0.010 & 0.023 & 0.009 & 0.028 & 0.008 & 0.008 & 0.033 & 0.019 & 0.041 & 0.020 \\
+	平均RMSE              & 0.016 & 0.028 & 0.014 & 0.035 & 0.013 & 0.013 & 0.037 & 0.026 & 0.057 & 0.027 \\
+	\bottomrule
+	\end{tabular}%
+	}
+	\caption{五种模型预测性能评估结果}
+	\end{table}
 	\begin{itemize}
 		\item 五个模型均取得较高预测精度，使用数据驱动方法实现锂离子电池SOH估计具有可行性
 		\item 对于短时预测问题，非隐状态模型的预测精度高于隐状态模型
@@ -76,6 +116,23 @@
 \end{frame}
 
 \begin{frame}
+
+\begin{table}[]
+	\centering
+	\resizebox{\columnwidth}{!}{%
+	\begin{tabular}{ccccc}
+	\toprule
+	评价指标   & 第一组实验    & 第二组实验    & 第三组实验    & 第四组实验    \\
+	\midrule
+	平均MaxE & 0.110514 & 0.131351 & 0.08509  & 0.068284 \\
+	平均MAE  & 0.011018 & 0.015671 & 0.006605 & 0.006807 \\
+	平均RMSE & 0.016167 & 0.021842 & 0.010835 & 0.009845 \\
+	模型参数量  & 60421    & 12693    & 60421    & 12693   \\
+	\bottomrule
+	\end{tabular}%
+	}
+	\caption{四组实验CNN模型预测性能评估结果}
+	\end{table}
 	\begin{itemize}
 		\item 对比使用V、I、T为输入的情形，使用V、I、SOC为输入时模型预测结果有很大提升
 		\item 使用时间序列-图像变换能在保持预测精度的前提下显著降低模型参数量
@@ -88,7 +145,25 @@
 \end{frame}
 
 \begin{frame}
-	实验结果表明使用数据驱动方法实现锂离子电池RUL预测具有可行性
+	% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[]
+	\centering
+	\resizebox{\columnwidth}{!}{%
+	\begin{tabular}{ccccccccc}
+	\toprule
+	指标    & 电池003    & 电池011    & 电池013    & 电池006    & 电池044    & 电池039    & 电池041    & 均值       \\
+	\midrule
+	RMSE  & 3.855191 & 3.102227 & 10.77393 & 10.12258 & 13.87137 & 8.883196 & 4.498271 & 7.872395 \\
+	NRMSE & 0.035861 & 0.02924  & 0.181346 & 0.028673 & 0.047128 & 0.019219 & 0.051681 & 0.056164 \\  
+	\bottomrule
+	\end{tabular}%
+	}
+	\caption{\fontsize{10.5bp}{17bp}DeepLSTM模型电池Ah-RUL预测性能}
+	\end{table}
+	\begin{itemize}
+		\item 实验结果表明使用数据驱动方法实现锂离子电池RUL预测具有可行性
+	\end{itemize}
 \end{frame}
 
 \section{总结与展望}
@@ -135,7 +210,7 @@
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}{感谢各位老师}
 	\LARGE \centering 汇报完毕，请各位老师批评指正！
 \end{frame}
 
