@@ -6,5 +6,7 @@
 *.snm
 *.synctex.gz
 
+.DS_Store
+
 thesis
 slide
