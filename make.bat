@@ -1,5 +1,7 @@
-xelatex NCEPU_Beamer_Theme & 
-xelatex NCEPU_Beamer_Theme
+xelatex NCEPU_Beamer_Theme_formatted & 
+xelatex NCEPU_Beamer_Theme_formatted
+xelatex NCEPU_Beamer_Theme_noted & 
+xelatex NCEPU_Beamer_Theme_noted
 del *.aux /s
 del *.bak /s
 del *.log /s
