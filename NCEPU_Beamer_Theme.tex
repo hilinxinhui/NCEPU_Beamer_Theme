@@ -5,7 +5,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{ncepu}
 \usepackage{graphicx} % 插入图片
-\usepackage{subfig} % 子图
+% \usepackage{subfig} % 子图
+\usepackage[caption=false,font=tiny,labelfont=sf,textfont=sf]{subfig}
 \usepackage{booktabs} % 三线表
 \usepackage{multirow} % 三线表
 \usepackage{caption}
@@ -23,11 +24,10 @@
 \endgroup}
 
 \author[林新辉]{答辩人：林新辉 \\ [5mm] 导师：李沂洹}
-\title{基于数据驱动方法的动力电池健康状态估计和剩余寿命预测方法研究}
+\title{基于数据驱动的动力电池健康状态估计和剩余寿命预测方法研究}
 \subtitle{Research on Data-Driven Approaches for Estimating Health Status and Predicting Remaining Useful Life of Lithium-Ion Batteries in Electric Vehicles}
 \institute{控制与计算机工程学院，华北电力大学}
 \date{2023年6月13日}
-
 \begin{document}
 
 % 封面页
@@ -43,19 +43,17 @@
 
 \section{研究背景和研究对象}
 
-\begin{frame}{\small 研究背景和研究对象}
-	% \begin{figure}[htbp]
-	% 	\includegraphics[scale=0.2]{figures/nasa_B0005_failure_threshold.jpg}
-	% \end{figure}
-	\begin{figure}[htbp]    % 常规操作\begin{figure}开头说明插入图片
-		  \centering            % 前面说过，图片放置在中间
+\begin{frame}
+	\begin{figure}[htbp]
+		  \centering
 		  \subfloat[SOH]   % 第一张子图的下标（注意：注释要写在[]中括号内）
 		  {\label{fig:subfig1}\includegraphics[width=0.25\textwidth]{figures/nasa_B0005_failure_threshold.jpg}}
 		  \subfloat[RUL]
 		  {\label{fig:subfig2}\includegraphics[width=0.25\textwidth]{figures/RUL.png}}
 		  \subfloat[SOC]
 		  {\label{fig:subfig3}\includegraphics[width=0.25\textwidth]{figures/tri_b3c0_soc.jpg}}
-		  % \caption{电池SOH、RUL和SOC示意图}    % 整个图片的说明，注释写在{}内
+		\captionsetup{font=tiny}
+		\caption{电池SOH、RUL和SOC示意图}
 		\end{figure}
 	\begin{description}
 		\item[SOH]
@@ -74,13 +72,17 @@
 \begin{frame}
 	\begin{figure}[htbp]
 		\centering
-			\captionsetup{font=tiny}
-			\subfloat[CALCE数据集上预测结果]
+			\subfloat[CALCE\_CS2\_35电池上的SOH估计结果]
 			{\label{fig:subfig1}\includegraphics[width=0.45\textwidth]{figures/soh_cap/slide_figure_calce.jpg}}
-			\captionsetup{font=tiny}
-			\subfloat[NASA PCoE数据集上预测结果]
+			\subfloat[NASA\_PCoE\_B0005电池上的SOH估计结果]
 			{\label{fig:subfig2}\includegraphics[width=0.45\textwidth]{figures/soh_cap/slide_figure_nasa.jpg}}
+	\captionsetup{font=tiny}
+	\caption{五种模型的SOH估计结果示意图}
 	\end{figure}
+	\begin{itemize}
+		\item 在CALCE数据集（包含4颗电池的循环数据）和NASA PCoE数据集（包含4颗电池的循环数据）上开展实验，采用留一法划分数据集
+		\item 受篇幅限制，展示CALCE数据集中编号为CS2\_35电池和NASA PCoE数据集中编号为B0005电池上的测试结果
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -89,12 +91,12 @@
 	\resizebox{\columnwidth}{!}{%
 	\begin{tabular}{ccccccccccc}
 	\toprule
-	\multirow{2}{*}{指标} & \multicolumn{5}{l}{CALCE数据集}          & \multicolumn{5}{l}{NASA PCoE数据集}      \\
+	\multirow{2}{*}{评价指标} & \multicolumn{5}{c}{CALCE数据集}          & \multicolumn{5}{c}{NASA PCoE数据集}      \\
 						& AR    & SVR   & MLP   & LSTM  & CNN   & AR    & SVR   & MLP   & LSTM  & CNN   \\
 	\midrule
-	平均MaxE              & 0.116 & 0.141 & 0.147 & 0.152 & 0.142 & 0.054 & 0.097 & 0.111 & 0.158 & 0.113 \\
-	平均MAE               & 0.010 & 0.023 & 0.009 & 0.028 & 0.008 & 0.008 & 0.033 & 0.019 & 0.041 & 0.020 \\
-	平均RMSE              & 0.016 & 0.028 & 0.014 & 0.035 & 0.013 & 0.013 & 0.037 & 0.026 & 0.057 & 0.027 \\
+	平均MaxE              & \underline{0.116} & 0.141 & 0.147 & 0.152 & 0.142 & \underline{0.054} & 0.097 & 0.111 & 0.158 & 0.113 \\
+	平均MAE               & 0.010 & 0.023 & 0.009 & 0.028 & \underline{0.008} & \underline{0.008} & 0.033 & 0.019 & 0.041 & 0.020 \\
+	平均RMSE              & 0.016 & 0.028 & 0.014 & 0.035 & \underline{0.013} & \underline{0.013} & 0.037 & 0.026 & 0.057 & 0.027 \\
 	\bottomrule
 	\end{tabular}%
 	}
@@ -103,7 +105,7 @@
 	\end{table}
 	\begin{itemize}
 		\item 五个模型均取得较高预测精度，使用数据驱动方法实现锂离子电池SOH估计具有可行性
-		\item 对于短时预测问题，非隐状态模型的预测精度高于隐状态模型
+		\item 对于短期时间序列预测问题，非隐状态模型（AR、SVR、MLP和CNN）的预测精度优于隐状态模型（LSTM）
 	\end{itemize}
 \end{frame}
 
@@ -112,32 +114,21 @@
 \begin{frame}
 	\begin{figure}[htbp]
 		\centering
-			{\label{fig:subfig1}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell1_cnn_vit.jpg}}
-			{\label{fig:subfig2}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell1_cnn_viq.jpg}}
-			{\label{fig:subfig3}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell1_cnn_vit_trans.jpg}}
-			{\label{fig:subfig4}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell1_cnn_viq_trans.jpg}}
+			\subfloat[VIT输入，无变换]
+			{\label{fig:subfig1}\includegraphics[width=0.25\textwidth]{figures/soh_vitq/tri_group1_cell4_cnn_vit.jpg}}
+		\subfloat[VIq输入，无变换]	
+		{\label{fig:subfig2}\includegraphics[width=0.25\textwidth]{figures/soh_vitq/tri_group1_cell4_cnn_viq.jpg}}
+		\subfloat[VIT输入，有变换]
+			{\label{fig:subfig3}\includegraphics[width=0.25\textwidth]{figures/soh_vitq/tri_group1_cell4_cnn_vit_trans.jpg}}
+		\subfloat[VIq输入，有变换]	
+		{\label{fig:subfig4}\includegraphics[width=0.25\textwidth]{figures/soh_vitq/tri_group1_cell4_cnn_viq_trans.jpg}}
+	\captionsetup{font=tiny}
+	\caption{CNN模型在四种不同训练配置下SOH估计结果示意图}
 	\end{figure}
-	\begin{figure}[htbp]
-		\centering
-			{\label{fig:subfig1}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell2_cnn_vit.jpg}}
-			{\label{fig:subfig2}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell2_cnn_viq.jpg}}
-			{\label{fig:subfig3}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell2_cnn_vit_trans.jpg}}
-			{\label{fig:subfig4}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell2_cnn_viq_trans.jpg}}
-	\end{figure}
-	\begin{figure}[htbp]
-		\centering
-			{\label{fig:subfig1}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell3_cnn_vit.jpg}}
-			{\label{fig:subfig2}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell3_cnn_viq.jpg}}
-			{\label{fig:subfig3}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell3_cnn_vit_trans.jpg}}
-			{\label{fig:subfig4}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell3_cnn_viq_trans.jpg}}
-	\end{figure}
-	\begin{figure}[htbp]
-		\centering
-			{\label{fig:subfig1}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell4_cnn_vit.jpg}}
-			{\label{fig:subfig2}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell4_cnn_viq.jpg}}
-			{\label{fig:subfig3}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell4_cnn_vit_trans.jpg}}
-			{\label{fig:subfig4}\includegraphics[width=0.2\textwidth]{figures/soh_vitq/tri_group1_cell4_cnn_viq_trans.jpg}}
-	\end{figure}
+	\begin{itemize}
+		\item 在TRI数据集（包含16块电池的循环数据，均分为四组）上进行实验，对电池分组采用留一法划分数据集
+		\item 受篇幅限制，展示其中编号为b3c0的电池在四种不同实验配置下的测试结果
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -146,7 +137,7 @@
 	\resizebox{\columnwidth}{!}{%
 	\begin{tabular}{ccccc}
 	\toprule
-	评价指标   & 第一组实验    & 第二组实验    & 第三组实验    & 第四组实验    \\
+	评价指标   & VIT输入，无变换     & VIT输入，有变换    & VIq输入，无变换    & VIq输入，有变换    \\
 	\midrule
 	平均MaxE & 0.110514 & 0.131351 & 0.08509  & 0.068284 \\
 	平均MAE  & 0.011018 & 0.015671 & 0.006605 & 0.006807 \\
@@ -156,10 +147,10 @@
 	\end{tabular}%
 	}
 	\captionsetup{font=tiny}
-	\caption{四组实验CNN模型预测性能评估结果}
+	\caption{四组实验CNN模型SOH估计性能评估结果}
 	\end{table}
 	\begin{itemize}
-		\item 对比使用V、I、T为输入的情形，使用V、I、q为输入时模型预测结果有很大提升
+		\item 对比使用V、I、T为输入的情形，使用V、I、q为输入时模型预测性能有显著提升
 		\item 使用时间序列-图像变换能在保持预测精度的前提下显著降低模型参数量
 	\end{itemize}
 \end{frame}
@@ -167,22 +158,21 @@
 \subsection{电池RUL预测}
 
 \begin{frame}
-	\begin{itemize}
-		\item 基于循环圈数定义的RUL（cycle-RUL）\\${RUL_{cycle} = n_{EOL} - n_{cycle}}$
-		\item 基于容量定义的RUL（Ah-RUL）\\${RUL_{Ah} = \frac{trapz(M_{current}[:, :], M_{time}[:, :]) - trapz(M_{current}[n:EOL, :], M_{time}[n:EOL, :])}{C_{norm}}}$
-	\end{itemize}
 	\begin{figure}[htbp]
 		\centering
-			{\label{fig:subfig1}\includegraphics[width=0.3\textwidth]{figures/rul/unibo_lstm_rul_cycle_1.jpg}}
-			{\label{fig:subfig2}\includegraphics[width=0.3\textwidth]{figures/rul/unibo_lstm_rul_cycle_2.jpg}}
-			{\label{fig:subfig2}\includegraphics[width=0.3\textwidth]{figures/rul/unibo_lstm_rul_cycle_3.jpg}}
-	\end{figure}
-	\begin{figure}[htbp]
-		\centering
+			\subfloat[电池044的RUL预测结果]
 			{\label{fig:subfig1}\includegraphics[width=0.3\textwidth]{figures/rul/unibo_lstm_rul_cycle_4.jpg}}
+			\subfloat[电池039的RUL预测结果]
 			{\label{fig:subfig2}\includegraphics[width=0.3\textwidth]{figures/rul/unibo_lstm_rul_cycle_5.jpg}}
-			{\label{fig:subfig2}\includegraphics[width=0.3\textwidth]{figures/rul/unibo_lstm_rul_cycle_6.jpg}}
+			\subfloat[电池041的RUL预测结果]
+			{\label{fig:subfig3}\includegraphics[width=0.3\textwidth]{figures/rul/unibo_lstm_rul_cycle_6.jpg}}
+	\captionsetup{font=tiny}		
+	\caption{DeepLSTM模型的RUL预测结果示意图}
 	\end{figure}
+	\begin{itemize}
+		\item 在Unibo Powertools数据集（包含27块电池的循环数据）上进行实验，其中20块电池数据用作训练集、7块电池数据被用作测试集
+		\item 受篇幅限制，展示其中编号为044、039和041的电池上的测试结果
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -193,7 +183,7 @@
 	\resizebox{\columnwidth}{!}{%
 	\begin{tabular}{ccccccccc}
 	\toprule
-	指标    & 电池003    & 电池011    & 电池013    & 电池006    & 电池044    & 电池039    & 电池041    & 均值       \\
+	评价指标    & 电池003    & 电池011    & 电池013    & 电池006    & 电池044    & 电池039    & 电池041    & 均值       \\
 	\midrule
 	RMSE  & 3.855191 & 3.102227 & 10.77393 & 10.12258 & 13.87137 & 8.883196 & 4.498271 & 7.872395 \\
 	NRMSE & 0.035861 & 0.02924  & 0.181346 & 0.028673 & 0.047128 & 0.019219 & 0.051681 & 0.056164 \\  
@@ -233,6 +223,8 @@
 
 \section{写在最后}
 
+\subsection{代码可用性}
+
 \begin{frame}
 	\centering
 	本课题相关代码已在github上开源，请见：
@@ -252,7 +244,9 @@
 
 \end{frame}
 
-\begin{frame}{感谢各位老师}
+\subsection{感谢各位老师}
+
+\begin{frame}
 	\LARGE \centering 汇报完毕，请各位老师批评指正！
 \end{frame}
 
