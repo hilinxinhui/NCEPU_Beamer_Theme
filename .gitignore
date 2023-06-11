@@ -5,6 +5,7 @@
 *.toc
 *.snm
 *.synctex.gz
+*.upa
 
 .DS_Store
 
