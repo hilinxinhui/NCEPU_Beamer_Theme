@@ -25,8 +25,8 @@
 \endgroup}
 
 \author[林新辉]{答辩人：林新辉 \\ [5mm] 导师：李沂洹}
-\title{基于数据驱动的动力电池健康状态估计和剩余寿命预测方法研究}
-\subtitle{Research on Data-Driven Approaches for Estimating Health Status and Predicting Remaining Useful Life of Lithium-Ion Batteries in Electric Vehicles}
+\title{基于数据驱动的动力电池\\剩余寿命预测方法研究}
+\subtitle{Research on Data-Driven Approaches for Remaining Useful Life Prediction of Lithium-Ion Batteries in Electric Vehicles}
 \institute{控制与计算机工程学院，华北电力大学}
 \date{2023年6月13日}
 \begin{document}
@@ -87,6 +87,7 @@
 		\item 在CALCE数据集（包含4颗电池的循环数据）和NASA PCoE数据集（包含4颗电池的循环数据）上开展实验，采用留一法划分数据集
 		\item 受篇幅限制，展示在CALCE\_CS2\_35电池和NASA\_PCoE\_B0005电池上的测试结果
 	\end{itemize}
+	\pdfnote{本课题的第一部分是基于历史容量退化数据的电池SOH估计。这一部分研究的目的在于验证数据驱动方法的可行性并比较不同模型的预测性能。\\这部分研究实现了5种模型，分别是自回归（AR）模型，支持向量回归（SVR）模型，多层感知机（MP）模型，长短期记忆神经网络（LSTM）模型和卷积神经网络（CNN）模型。\\以前16个循环的放电容量为输入估计当前循环的放电容量，5种模型在2个数据集上的预测结果示意如图。}
 \end{frame}
 
 \begin{frame}
@@ -111,6 +112,7 @@
 		\item 五个模型均取得较高预测精度，使用数据驱动方法实现锂离子电池SOH估计具有可行性
 		\item 对于短期时间序列预测问题，非隐状态模型（AR、SVR、MLP和CNN）的预测精度优于隐状态模型（LSTM）
 	\end{itemize}
+	\pdfnote{这一页展示了五种数据驱动方法在两个数据集上的预测性能，使用最大误差（MaxE）、平均绝对误差（MAE）和均方根误差（RMSE）作为评价指标。\\由表，五种模型均取得较高的预测精度，实验结果证明了数据驱动方法的可行性。\\同时，比较模型的具体性能，对于短期时间序列预测问题，非隐状态模型（AR、SVR、MLP和CNN）的预测精度优于隐状态模型（LSTM）。}
 \end{frame}
 
 \subsection{基于电池充放电直接测量量的SOH估计}
@@ -133,6 +135,7 @@
 		\item 在TRI数据集（包含16块电池的循环数据，均分为四组）上进行实验，对电池分组采用留一法划分数据集
 		\item 受篇幅限制，展示其中编号为b3c0的电池在四种不同实验配置下的测试结果
 	\end{itemize}
+	\pdfnote{本课题的第二部分是基于充放电过程中直接测量量的电池SOH估计，使用部分充电段数据作为输入，克服了直接使用放电容量的方法的难以在线应用的问题。}
 \end{frame}
 
 \begin{frame}
@@ -157,6 +160,7 @@
 		\item 对比使用V、I、T为输入的情形，使用V、I、q为输入时模型预测性能有显著提升
 		\item 使用时间序列-图像变换能在保持预测精度的前提下显著降低模型参数量
 	\end{itemize}
+	\pdfnote{这一页展示了CNN模型在四种不同输入配置下的预测性能。\\由此，对比使用V、I、T为输入的情形，使用V、I、q为输入时模型预测性能有显著提升；使用时间序列-图像变换能在保持预测精度的前提下显著降低模型参数量。}
 \end{frame}
 
 \subsection{电池RUL预测}
@@ -177,11 +181,10 @@
 		\item 在Unibo Powertools数据集（包含27块电池的循环数据）上进行实验，其中20块电池数据用作训练集、7块电池数据被用作测试集
 		\item 受篇幅限制，展示在编号为044、039和041的电池上的测试结果
 	\end{itemize}
+	\pdfnote{以上述两个部分对电池SOH的研究为基础，本课题第三部分研究电池RUL预测问题。}
 \end{frame}
 
 \begin{frame}
-	% Please add the following required packages to your document preamble:
-	% \usepackage{graphicx}
 	\begin{table}[]
 		\centering
 		\resizebox{\columnwidth}{!}{%
@@ -200,6 +203,7 @@
 	\begin{itemize}
 		\item 实验结果表明使用数据驱动方法实现锂离子电池RUL预测具有可行性
 	\end{itemize}
+	\pdfnote{这一页展示了深度LSTM模型在测试集的7块电池上的预测性能。\\实验结果证明了使用数据驱动方法实现电池RUL预测的可行性。}
 \end{frame}
 
 \section{总结与展望}
@@ -223,6 +227,7 @@
 			      \item 模型在嵌入式平台的部署：模型量化和模型转换
 		      \end{itemize}
 	\end{itemize}
+	\pdfnote{以上是本课题的主要研究内容，第一、二部分研究电池SOH估计问题，第三部分研究电池RUL预测问题。\\以下两方面工作是我未来的研究方向，其一，针对估计/预测模型，可以通过模型融合提高预测性能，可以引入贝叶斯方法对回归结果进行不确定性度量，可以通过引入迁移学习策略提高模型的泛化能力；其二，针对模型在实际车机系统上的部署，需要解决模型量化和模型转换的问题。}
 \end{frame}
 
 \section{写在最后}
